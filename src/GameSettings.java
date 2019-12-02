@@ -15,25 +15,17 @@ public class GameSettings
     private final int NET_HEIGHT;
 
     //Ball Movement Constants
-    private int BALL_SPEED;
+    private int ballSpeed;
 
     //Ball Position on Screen
     private int BALL_LENGTH;
-
-    //Ball Image
-    private final ImageIcon ballImage;
-    private final Image ballImageTransformed;
 
     //Vertical and Paddle Dimensions
     private final int VERTICAL_PADDLE_WIDTH;
     private final int VERTICAL_PADDLE_HEIGHT;
     private final int HORIZONTAL_PADDLE_WIDTH;
     private final int HORIZONTAL_PADDLE_HEIGHT;
-    private int PADDLE_SPEED;
-
-    //Paddle Images
-    private final ImageIcon paddleImage;
-    public final Image paddleImageTransformed;
+    private int paddleSpeed;
 
     //Default Constructor
     public GameSettings() {
@@ -47,15 +39,14 @@ public class GameSettings
         SLEEP_TIME = 8;
         NET_WIDTH = 10;
         NET_HEIGHT = SCREEN_HEIGHT / 5;
+
         /*
     ====================================================================================================================
     BALL SETTINGS
     ====================================================================================================================
      */
-        BALL_SPEED = 3;
+        ballSpeed = 3;
         BALL_LENGTH = 10;
-        ballImage = new ImageIcon("RedVertPaddle.png");
-        ballImageTransformed = ballImage.getImage().getScaledInstance(62,62,Image.SCALE_SMOOTH);
         /*
     ====================================================================================================================
     PADDLE SETTINGS
@@ -67,11 +58,7 @@ public class GameSettings
         HORIZONTAL_PADDLE_WIDTH = SCREEN_HEIGHT / 5;
         HORIZONTAL_PADDLE_HEIGHT = 10;
 
-        PADDLE_SPEED = 5;
-
-        paddleImage = new ImageIcon("RedVerPaddle.png");
-        paddleImageTransformed = paddleImage.getImage().getScaledInstance(VERTICAL_PADDLE_WIDTH,
-                                                                          VERTICAL_PADDLE_HEIGHT,Image.SCALE_SMOOTH);
+        paddleSpeed = 5;
     }
 
     //Getters
@@ -85,8 +72,12 @@ public class GameSettings
     public int getVERTICAL_PADDLE_HEIGHT(){return VERTICAL_PADDLE_HEIGHT;}
     public int getHORIZONTAL_PADDLE_WIDTH(){return HORIZONTAL_PADDLE_WIDTH;}
     public int getHORIZONTAL_PADDLE_HEIGHT(){return HORIZONTAL_PADDLE_HEIGHT;}
-    public int getPADDLE_SPEED(){return PADDLE_SPEED;}
+    public int getPaddleSpeed(){return paddleSpeed;}
 
-    public int getBALL_SPEED(){return BALL_SPEED;}
+    public int getBallSpeed(){return ballSpeed;}
     public int getBALL_LENGTH(){return BALL_LENGTH;}
+
+    //Setters
+    public void setPaddleSpeed(int speed){paddleSpeed = speed;}
+    public void setBallSpeed(int speed){ballSpeed = speed;}
 }

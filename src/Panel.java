@@ -30,7 +30,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
     private Timer sleep_;
     Panel()
     {
-
         settings_ = new GameSettings();
 
         //Create a timer that will be used for moving the images every so often (5ms)
@@ -38,7 +37,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
         sleep_.start();
 
         //Initalize the game ball
-        ball_ = new Ball(settings_, this);
+        ball_ = new Ball(settings_);
 
         //Start Player Vertical Paddle on the middle right side of the screen
         playerVert_ = new Paddle(settings_, (settings_.getSCREEN_WIDTH() -

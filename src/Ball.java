@@ -16,100 +16,123 @@ public class Ball
     private boolean down_;
     private boolean right_;
     private boolean left_;
+    private static boolean gameStart_;
 
     private GameSettings settings_;
-    private Panel pannel_;
-    public Ball(GameSettings settings, Panel pannel_)
+    public Ball(GameSettings settings)
     {
         this.settings_ = settings;
-        this.pannel_ = pannel_;
+        gameStart_ = false;
 
         //Position the start of the ball in the middle of the screen
         this.x_ = (settings_.getSCREEN_WIDTH() / 2) - (settings_.getBALL_LENGTH() / 2);
         this.y_ = (settings_.getSCREEN_HEIGHT() / 2) - (settings_.getBALL_LENGTH() / 2);
 
-        //Randomly start the ball to either travel left and up, or down and right
+        randomBallStart();
+    }
+
+    //Randomly start the ball in different directions
+    private void randomBallStart()
+    {
         Random rand = new Random();
-        int num = rand.nextInt(2);
-        if(num == 1)
+        int num1 = rand.nextInt(2);
+        int num2 = rand.nextInt(2);
+        if(num1 == 1)
         {
-            this.right_ = this.down_ =  false;
-            this.left_ = this.up_ = true;
+            this.right_ = false;
+            this.left_  = true;
+            if(num2 == 1)
+            {
+                this.up_ = false;
+                this.down_ = true;
+            }
+            else
+            {
+                this.up_ = true;
+                this.down_ = false;
+            }
         }
         else
         {
-            this.left_ =  this.up_ = false;
-            this.right_ = this.down_ = true;
+            this.left_ = false;
+            this.right_  = true;
+            if(num2 == 1)
+            {
+                this.up_ = false;
+                this.down_ = true;
+            }
+            else
+            {
+                this.up_ = true;
+                this.down_ = false;
+            }
         }
     }
 
     public void update()
     {
-        //Check to see if the ball is out of bounds on the computer's side.
-        if(x_ < 0 || (y_ < 0 && x_ < settings_.getSCREEN_WIDTH() / 2) ||
-                (y_ > settings_.getSCREEN_HEIGHT() && x_ < settings_.getSCREEN_WIDTH() / 2))
-        {
-            //Increase the player's score by one point
-            UI.playerScore_++;
+        if(gameStart_) {
+            //Check to see if the ball is out of bounds on the computer's side.
+            if (x_ < 0 || (y_ < 0 && x_ < settings_.getSCREEN_WIDTH() / 2) ||
+                    (y_ > settings_.getSCREEN_HEIGHT() && x_ < settings_.getSCREEN_WIDTH() / 2)) {
+                //Increase the player's score by one point
+                UI.playerScore_++;
 
-            //Check to see if the current game was won
-            if(UI.playerScore_ == 11)
-            {
-                //They won that game, so increase the match win count by one and reset the scores
-                UI.playerScore_ = 0;
-                UI.computerScore_ = 0;
+                //Check to see if the current game was won
+                if (UI.playerScore_ == 11) {
+                    //They won that game, so increase the match win count by one and reset the scores
+                    UI.playerScore_ = 0;
+                    UI.computerScore_ = 0;
 
-                UI.playerMatchScore_++;
-                //Check to see if the player won the entirety of the match
-                if (UI.playerMatchScore_ == 3)
-                {
-                    UI.playerMatchScore_ = 0;
-                    System.out.println("YOU WON");
+                    UI.playerMatchScore_++;
+                    //Check to see if the player won the entirety of the match
+                    if (UI.playerMatchScore_ == 3) {
+                        UI.playerMatchScore_ = 0;
+                        System.out.println("YOU WON");
+                    }
                 }
+
+                //Reset the ball to start back in the middle
+                x_ = (settings_.getSCREEN_WIDTH() / 2) - (settings_.getBALL_LENGTH() / 2);
+                y_ = (settings_.getSCREEN_HEIGHT() / 2) - (settings_.getBALL_LENGTH() / 2);
+                randomBallStart();
             }
 
-            //Reset the ball to start back in the middle
-            x_ = (settings_.getSCREEN_WIDTH() / 2) - (settings_.getBALL_LENGTH() / 2);
-            y_ = (settings_.getSCREEN_HEIGHT() / 2) - (settings_.getBALL_LENGTH() / 2);
-        }
+            //Check to see if the ball is out of bounds on the player's side.
+            if (x_ > settings_.getSCREEN_WIDTH() || (y_ < 0 && x_ > settings_.getSCREEN_WIDTH() / 2) ||
+                    (y_ > settings_.getSCREEN_HEIGHT() && x_ > settings_.getSCREEN_WIDTH() / 2)) {
+                //Increase the computer's score by one point
+                UI.computerScore_++;
 
-        //Check to see if the ball is out of bounds on the player's side.
-        if(x_ > settings_.getSCREEN_WIDTH() || (y_ < 0 && x_ > settings_.getSCREEN_WIDTH() / 2) ||
-                (y_ > settings_.getSCREEN_HEIGHT() && x_ > settings_.getSCREEN_WIDTH() / 2))
-        {
-            //Increase the computer's score by one point
-            UI.computerScore_++;
+                //Check to see if the current game was won
+                if (UI.computerScore_ == 11) {
+                    //They won that game, so increase the match win count by one and reset the scores
+                    UI.computerScore_ = 0;
+                    UI.playerScore_ = 0;
 
-            //Check to see if the current game was won
-            if(UI.computerScore_ == 11)
-            {
-                //They won that game, so increase the match win count by one and reset the scores
-                UI.computerScore_ = 0;
-                UI.playerScore_ = 0;
-
-                UI.computerMatchScore_++;
-                //Check to see if the player won the entirety of the match
-                if(UI.computerMatchScore_ == 3)
-                {
-                    UI.computerMatchScore_ = 0;
-                    System.out.println("YOU Lost");
+                    UI.computerMatchScore_++;
+                    //Check to see if the player won the entirety of the match
+                    if (UI.computerMatchScore_ == 3) {
+                        UI.computerMatchScore_ = 0;
+                        System.out.println("YOU Lost");
+                    }
                 }
+                //Reset the ball to start back in the middle
+                x_ = (settings_.getSCREEN_WIDTH() / 2) - (settings_.getBALL_LENGTH() / 2);
+                y_ = (settings_.getSCREEN_HEIGHT() / 2) - (settings_.getBALL_LENGTH() / 2);
+                randomBallStart();
             }
-            //Reset the ball to start back in the middle
-            x_ = (settings_.getSCREEN_WIDTH() / 2) - (settings_.getBALL_LENGTH() / 2);
-            y_ = (settings_.getSCREEN_HEIGHT() / 2) - (settings_.getBALL_LENGTH() / 2);
+
+            //Check to see where the ball is supposed to be going, and add a speed in that direction
+            if (up_)
+                y_ -= settings_.getBallSpeed();
+            if (down_)
+                y_ += settings_.getBallSpeed();
+            if (right_)
+                x_ += settings_.getBallSpeed();
+            if (left_)
+                x_ -= settings_.getBallSpeed();
         }
-
-        //Check to see where the ball is supposed to be going, and add a speed in that direction
-        if(up_)
-            y_ -= settings_.getBALL_SPEED();
-        if(down_)
-            y_ += settings_.getBALL_SPEED();
-        if(right_)
-            x_ += settings_.getBALL_SPEED();
-        if(left_)
-            x_ -= settings_.getBALL_SPEED();
-
     }
 
     //Get the bounds of where the bal is currently at
@@ -125,6 +148,7 @@ public class Ball
         g.fillRoundRect(x_, y_, settings_.getBALL_LENGTH() ,settings_.getBALL_LENGTH(),10,10);
     }
 
+
     //Getters
     //Return the coordinates of the ball
     public int getX(){return x_;}
@@ -135,4 +159,6 @@ public class Ball
     public void setDown_(){down_ = true; up_ = false;}
     public void setRight_(){right_ = true; left_ = false;}
     public void setLeft_(){left_ = true; right_ = false;}
+
+    public static void gameStart() {gameStart_ = true;}
 }
