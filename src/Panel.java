@@ -11,10 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
-public class Panel extends JPanel implements ActionListener, KeyListener {
+public class Panel extends JPanel implements ActionListener, KeyListener
+{
 
     //Create an instance of all 6 paddles used in the game
     private Paddle playerVert_;
@@ -51,7 +50,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
         //Start the paddle on the middle of the bottom of the screen
         playerHorBottom_ = new Paddle(settings_, (settings_.getSCREEN_WIDTH() / 2 + settings_.getSCREEN_WIDTH() / 4
                 - settings_.getHORIZONTAL_PADDLE_WIDTH() / 2),
-                (settings_.getSCREEN_HEIGHT() - settings_.getHORIZONTAL_PADDLE_HEIGHT() * 5) - 10, true,
+                (settings_.getSCREEN_HEIGHT() - settings_.getHORIZONTAL_PADDLE_HEIGHT() * 5) - 30, true,
                 false, ball_);
 
         //Start the computer's vertical on the middle of the very left of the screen
@@ -65,7 +64,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
         //Start the computers bottom paddle on the middle of the right bottom of the screen
         computerHorBottom_ = new Paddle(settings_, (settings_.getSCREEN_WIDTH() / 2 - settings_.getSCREEN_WIDTH() / 4
                 - settings_.getHORIZONTAL_PADDLE_WIDTH() / 2),
-                (settings_.getSCREEN_HEIGHT() - settings_.getHORIZONTAL_PADDLE_HEIGHT() * 5) - 10, true
+                (settings_.getSCREEN_HEIGHT() - settings_.getHORIZONTAL_PADDLE_HEIGHT() * 5) - 30, true
                     ,true, ball_);
 
         addKeyListener(this);
@@ -185,5 +184,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
             }
             odd++;
         }
+    }
+
+    public void freeze()
+    {
+        settings_.setBallSpeed(0);
+        UI.playerScore_ = 0;
+        UI.computerScore_ = 0;
+        UI.playerMatchScore_ = 0;
+        UI.computerMatchScore_ = 0;
     }
 }

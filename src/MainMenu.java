@@ -2,8 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
-public class MainMenu extends JFrame implements ActionListener
+public class MainMenu extends JFrame implements ActionListener, ItemListener
 {
     GameSettings settings_;
 
@@ -23,17 +25,18 @@ public class MainMenu extends JFrame implements ActionListener
 
     MainMenu(GameSettings settings)
     {
-        super("Pong -Main Menu");
+        super("Pong-Main Menu");
 
+        //Overlay it on top of our Gamescreen
         settings_ = settings;
         setSize(settings_.getSCREEN_WIDTH(), settings_.getSCREEN_HEIGHT());
         getContentPane().setBackground(Color.GRAY.darker().darker());
         setLayout(new GridLayout(3,1,5,5));
         setVisible(true);
 
-        title_ = new JLabel("PONG - No Walls!");
-        title_.setFont(new Font("Impact",Font.BOLD,28));
-
+        title_ = new JLabel("PONG-No Walls!", SwingConstants.CENTER);
+        title_.setFont(new Font("Impact", Font.ITALIC,42));
+        title_.setForeground(Color.WHITE);
         area1_ = new JPanel();
         area2_ = new JPanel();
         group = new ButtonGroup();
@@ -45,6 +48,9 @@ public class MainMenu extends JFrame implements ActionListener
         exit_ = new JButton("EXIT");
         play_.setBackground(Color.GRAY.darker());
         exit_.setBackground(Color.GRAY.darker());
+        play_.setForeground(Color.WHITE);
+        exit_.setForeground(Color.WHITE);
+
         area1_.setBackground(Color.GRAY.darker());
         area1_.add(play_);
         area1_.add(exit_);
@@ -55,6 +61,10 @@ public class MainMenu extends JFrame implements ActionListener
         easy_.setBackground(Color.GRAY.darker());
         medium_.setBackground(Color.GRAY.darker());
         insane_.setBackground(Color.GRAY.darker());
+        easy_.setForeground(Color.WHITE);
+        medium_.setForeground(Color.WHITE);
+        insane_.setForeground(Color.WHITE);
+
         group.add(easy_);
         group.add(medium_);
         group.add(insane_);
@@ -66,6 +76,38 @@ public class MainMenu extends JFrame implements ActionListener
         add(title_);
         add(area1_);
         add(area2_);
+
+        exit_.addActionListener(this);
+        play_.addActionListener(this);
+
+        easy_.addItemListener(this);
+        medium_.addItemListener(this);
+        insane_.addItemListener(this);
+
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent ie){
+        Object source =  ie.getItemSelectable();
+
+        if (source == easy_)
+        {
+            settings_.setBallSpeed(3);
+            settings_.setComputerPaddleSpeed(5);
+            settings_.setPlayerPaddleSpeed(5);
+        }
+        else if(source == medium_ )
+        {
+         settings_.setBallSpeed(6);
+         settings_.setComputerPaddleSpeed(8);
+         settings_.setPlayerPaddleSpeed(7);
+        }
+        else if(source == insane_)
+        {
+            settings_.setBallSpeed(10);
+            settings_.setComputerPaddleSpeed(15);
+            settings_.setPlayerPaddleSpeed(12);
+        }
     }
 
     @Override
@@ -74,15 +116,15 @@ public class MainMenu extends JFrame implements ActionListener
         Object source = ae.getSource();
 
         if(source == exit_)
+        {
             super.dispose();
+            Main.menuExit = true;
+        }
+        
         if(source == play_)
         {
-            setVisible(false);
             Ball.gameStart();
-        }
-        if (source == easy_)
-        {
-            settings_.setBallSpeed(3);
+            super.dispose();
         }
     }
 }

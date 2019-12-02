@@ -2,8 +2,6 @@
 This class controls all the settings for the pong game such as screen height, width, speeds, etc
 This helps to control the flow and easily tweak things if we wish to increase/decrease difficulty
  */
-import javax.swing.*;
-import java.awt.*;
 
 public class GameSettings
 {
@@ -15,7 +13,7 @@ public class GameSettings
     private final int NET_HEIGHT;
 
     //Ball Movement Constants
-    private int ballSpeed;
+    private static int ballSpeed;
 
     //Ball Position on Screen
     private int BALL_LENGTH;
@@ -25,7 +23,8 @@ public class GameSettings
     private final int VERTICAL_PADDLE_HEIGHT;
     private final int HORIZONTAL_PADDLE_WIDTH;
     private final int HORIZONTAL_PADDLE_HEIGHT;
-    private int paddleSpeed;
+    private static int playerPaddleSpeed;
+    private static int computerPaddleSpeed;
 
     //Default Constructor
     public GameSettings() {
@@ -58,7 +57,8 @@ public class GameSettings
         HORIZONTAL_PADDLE_WIDTH = SCREEN_HEIGHT / 5;
         HORIZONTAL_PADDLE_HEIGHT = 10;
 
-        paddleSpeed = 5;
+        playerPaddleSpeed = 5;
+        computerPaddleSpeed = 5;
     }
 
     //Getters
@@ -72,12 +72,14 @@ public class GameSettings
     public int getVERTICAL_PADDLE_HEIGHT(){return VERTICAL_PADDLE_HEIGHT;}
     public int getHORIZONTAL_PADDLE_WIDTH(){return HORIZONTAL_PADDLE_WIDTH;}
     public int getHORIZONTAL_PADDLE_HEIGHT(){return HORIZONTAL_PADDLE_HEIGHT;}
-    public int getPaddleSpeed(){return paddleSpeed;}
+    public int getPlayerPaddleSpeed(){return playerPaddleSpeed;}
+    public int getComputerPaddleSpeed(){return computerPaddleSpeed;}
 
     public int getBallSpeed(){return ballSpeed;}
     public int getBALL_LENGTH(){return BALL_LENGTH;}
 
     //Setters
-    public void setPaddleSpeed(int speed){paddleSpeed = speed;}
+    public void setComputerPaddleSpeed(int speed){computerPaddleSpeed = speed;}
+    public void setPlayerPaddleSpeed(int speed){playerPaddleSpeed = speed;}
     public void setBallSpeed(int speed){ballSpeed = speed;}
 }

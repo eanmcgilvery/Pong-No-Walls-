@@ -98,10 +98,10 @@ class Paddle
                 int xMiddle = (settings_.getHORIZONTAL_PADDLE_WIDTH() / 2) + x_ ;
                 //Travel Left
                 if(ball_.getX() < xMiddle && x_ > 0)
-                    x_ -= settings_.getPaddleSpeed();
+                    x_ -= settings_.getComputerPaddleSpeed();
                 //Travel Right
                 if(ball_.getX() > xMiddle && (x_ + settings_.getHORIZONTAL_PADDLE_WIDTH()) < settings_.getSCREEN_WIDTH() / 2)
-                    x_ += settings_.getPaddleSpeed();
+                    x_ += settings_.getComputerPaddleSpeed();
             }
             else
             {
@@ -110,11 +110,11 @@ class Paddle
                 //Travel Down
                 if(ball_.getY() > (y_ + settings_.getVERTICAL_PADDLE_HEIGHT() / 2 ) && (y_ + settings_.getVERTICAL_PADDLE_HEIGHT() +
                     (settings_.getVERTICAL_PADDLE_HEIGHT() / 3)) < settings_.getSCREEN_HEIGHT())
-                    y_ += settings_.getBallSpeed();
+                    y_ += settings_.getComputerPaddleSpeed();
 
                 //Travel Up
                 if((ball_.getY() < yMiddle) &&  y_ > 0)
-                    y_ -= settings_.getBallSpeed();
+                    y_ -= settings_.getComputerPaddleSpeed();
             }
 
         }
@@ -123,16 +123,16 @@ class Paddle
             //If its a player, check to make sure they're in bounds, as well as check to see which way
             //The player is trying to go, then move accordingly
             if(up_ && y_ > 0)
-                y_ -= settings_.getPaddleSpeed();
+                y_ -= settings_.getPlayerPaddleSpeed();
             if(down_ && (y_ + settings_.getVERTICAL_PADDLE_HEIGHT() +
                     (settings_.getVERTICAL_PADDLE_HEIGHT() / 3)) < settings_.getSCREEN_HEIGHT())
-                y_ += settings_.getPaddleSpeed();
+                y_ += settings_.getPlayerPaddleSpeed();
 
             if(right_ && x_ < (settings_.getSCREEN_WIDTH() - settings_.getHORIZONTAL_PADDLE_WIDTH() -
                     (settings_.getHORIZONTAL_PADDLE_WIDTH() / 3)))
-                x_ += settings_.getPaddleSpeed();
+                x_ += settings_.getPlayerPaddleSpeed();
             if(left_ && x_ > settings_.getSCREEN_WIDTH() / 2)
-                x_ -= settings_.getPaddleSpeed();
+                x_ -= settings_.getPlayerPaddleSpeed();
         }
 
     }

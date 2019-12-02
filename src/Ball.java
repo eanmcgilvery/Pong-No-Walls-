@@ -2,6 +2,7 @@
 This class contains all the attributes for the Ball using in pong
 This also includes checking collisions, as well as updating the UI with points
  */
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -88,8 +89,8 @@ public class Ball
                     //Check to see if the player won the entirety of the match
                     if (UI.playerMatchScore_ == 3) {
                         UI.playerMatchScore_ = 0;
-                        System.out.println("YOU WON");
-                    }
+                        JOptionPane.showMessageDialog(null,"YOU WON!","WINNER",
+                                JOptionPane.INFORMATION_MESSAGE);                    }
                 }
 
                 //Reset the ball to start back in the middle
@@ -114,7 +115,8 @@ public class Ball
                     //Check to see if the player won the entirety of the match
                     if (UI.computerMatchScore_ == 3) {
                         UI.computerMatchScore_ = 0;
-                        System.out.println("YOU Lost");
+                        JOptionPane.showMessageDialog(null,"YOU LOST","LOSER",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
                 //Reset the ball to start back in the middle
