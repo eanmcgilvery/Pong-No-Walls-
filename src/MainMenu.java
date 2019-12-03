@@ -7,21 +7,14 @@ import java.awt.event.ItemListener;
 
 public class MainMenu extends JFrame implements ActionListener, ItemListener
 {
-    GameSettings settings_;
+    private GameSettings settings_;
 
-    JLabel title_;
+    private JButton play_;
+    private  JButton exit_;
 
-    JPanel area1_;
-    JPanel area2_;
-
-    JButton play_;
-    JButton exit_;
-
-    JCheckBox easy_;
-    JCheckBox medium_;
-    JCheckBox insane_;
-
-    ButtonGroup group;
+    private JCheckBox easy_;
+    private JCheckBox medium_;
+    private JCheckBox insane_;
 
     MainMenu(GameSettings settings)
     {
@@ -32,18 +25,23 @@ public class MainMenu extends JFrame implements ActionListener, ItemListener
         setSize(settings_.getSCREEN_WIDTH(), settings_.getSCREEN_HEIGHT());
         getContentPane().setBackground(Color.GRAY.darker().darker());
         setLayout(new GridLayout(3,1,5,5));
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        title_ = new JLabel("PONG-No Walls!", SwingConstants.CENTER);
+        //Main title Across top third of the screen
+        JLabel title_ = new JLabel("PONG-No Walls!", SwingConstants.CENTER);
         title_.setFont(new Font("Impact", Font.ITALIC,42));
         title_.setForeground(Color.WHITE);
-        area1_ = new JPanel();
-        area2_ = new JPanel();
-        group = new ButtonGroup();
+
+        //Area to hold the buttons and to hold check boxes
+        JPanel area1_ = new JPanel();
+        JPanel area2_ = new JPanel();
+        ButtonGroup group = new ButtonGroup();
 
         area1_.setLayout(new GridLayout(1,2,5,5));
         area2_.setLayout(new GridLayout(1,3,5,5));
 
+        //Create play and Exit buttons
         play_ = new JButton("PLAY");
         exit_ = new JButton("EXIT");
         play_.setBackground(Color.GRAY.darker());
@@ -51,10 +49,12 @@ public class MainMenu extends JFrame implements ActionListener, ItemListener
         play_.setForeground(Color.WHITE);
         exit_.setForeground(Color.WHITE);
 
+        //Put buttons in the middle third of the screen
         area1_.setBackground(Color.GRAY.darker());
         area1_.add(play_);
         area1_.add(exit_);
 
+        //Create Check Boxes for the settings
         easy_ = new JCheckBox("EASY");
         medium_ = new JCheckBox("MEDIUM");
         insane_ = new JCheckBox("INSANE");
@@ -65,14 +65,18 @@ public class MainMenu extends JFrame implements ActionListener, ItemListener
         medium_.setForeground(Color.WHITE);
         insane_.setForeground(Color.WHITE);
 
+        //Group them so they cant be checked simultaniously
         group.add(easy_);
         group.add(medium_);
         group.add(insane_);
         area2_.setBackground(Color.GRAY.darker());
+
+        //Put buttons in lower third of the menu
         area2_.add(easy_);
         area2_.add(medium_);
         area2_.add(insane_);
 
+        //Add each section to the Screen
         add(title_);
         add(area1_);
         add(area2_);
@@ -90,11 +94,13 @@ public class MainMenu extends JFrame implements ActionListener, ItemListener
     public void itemStateChanged(ItemEvent ie){
         Object source =  ie.getItemSelectable();
 
+        //Set the coresponding speeds per challenge level.
+        //The harder the level, the faster the ball and CPU move
         if (source == easy_)
         {
             settings_.setBallSpeed(3);
             settings_.setComputerPaddleSpeed(5);
-            settings_.setPlayerPaddleSpeed(5);
+            settings_.setPlayerPaddleSpeed(6);
         }
         else if(source == medium_ )
         {
@@ -115,16 +121,15 @@ public class MainMenu extends JFrame implements ActionListener, ItemListener
     {
         Object source = ae.getSource();
 
-        if(source == exit_)
-        {
-            super.dispose();
-            Main.menuExit = true;
-        }
-        
+        //If play is clicked then start the match, and close the main menu
         if(source == play_)
         {
             Ball.gameStart();
             super.dispose();
         }
+
+        //If they wish oto exit, close the menu
+        if(source == exit_)
+            super.dispose();
     }
 }

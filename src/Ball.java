@@ -42,31 +42,21 @@ public class Ball
         {
             this.right_ = false;
             this.left_  = true;
-            if(num2 == 1)
-            {
-                this.up_ = false;
-                this.down_ = true;
-            }
-            else
-            {
-                this.up_ = true;
-                this.down_ = false;
-            }
         }
         else
         {
             this.left_ = false;
             this.right_  = true;
-            if(num2 == 1)
-            {
-                this.up_ = false;
-                this.down_ = true;
-            }
-            else
-            {
-                this.up_ = true;
-                this.down_ = false;
-            }
+        }
+        if(num2 == 1)
+        {
+            this.up_ = false;
+            this.down_ = true;
+        }
+        else
+        {
+            this.up_ = true;
+            this.down_ = false;
         }
     }
 

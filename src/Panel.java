@@ -2,15 +2,12 @@
 This class is the main collective Panel that everything is creates in as well as the paint to the
 GUI of the graphics (Paddels & ball) happens
  */
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 
 public class Panel extends JPanel implements ActionListener, KeyListener
 {
@@ -26,13 +23,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener
 
     private GameSettings settings_;
 
-    private Timer sleep_;
     Panel()
     {
         settings_ = new GameSettings();
 
         //Create a timer that will be used for moving the images every so often (5ms)
-        sleep_ = new Timer(settings_.getSLEEP_TIME(),this);
+        Timer sleep_ = new Timer(settings_.getSLEEP_TIME(), this);
         sleep_.start();
 
         //Initalize the game ball
@@ -111,9 +107,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener
     {
         Rectangle temp1 = pad.getBounds();
         Rectangle temp2 = ball.getBounds();
-        if(temp1.intersects(temp2))
-            return true;
-        return false;
+        return temp1.intersects(temp2);
     }
 
     //Blits all the images onto the screen
@@ -131,7 +125,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener
         ball_.paint(g);
     }
 
-    //Get s the keycode to check which keys were pressed
+    //Gets the keycode to check which keys were pressed
     public void keyPressed(KeyEvent ke)
     {
         playerVert_.vertPressedButton(ke.getKeyCode());
@@ -153,15 +147,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener
     public void keyTyped(KeyEvent ke)
     {}
 
-    public static void playMusic(String filePath) {
-        try {
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File(filePath)));
-            clip.start();
-        } catch (Exception exc) {
-            exc.printStackTrace(System.out);
-        }
-    }
     //Paint the Midline, or net, of the game
     public void paintME(Graphics g)
     {

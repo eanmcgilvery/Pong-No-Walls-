@@ -9,11 +9,7 @@ public class Main extends JFrame implements ActionListener
     private GameSettings settings_;
     private Panel pannel_;
 
-    private UI ui_;
-    private JMenuBar mainBar_;
-    private JMenu options_;
     private JMenuItem mainMenu_;
-    private JMenuItem exit_;
 
     public static boolean menuExit;
 
@@ -26,18 +22,16 @@ public class Main extends JFrame implements ActionListener
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         menuExit = false;
 
-        mainBar_ = new JMenuBar();
-        options_ = new JMenu("Options");
+        JMenuBar mainBar_ = new JMenuBar();
+        JMenu options_ = new JMenu("Options");
 
         mainMenu_ = new JMenuItem("Main Menu");
-        exit_ = new JMenuItem("Exit");
 
         options_.add(mainMenu_);
-        options_.add(exit_);
         mainBar_.add(options_);
         setJMenuBar(mainBar_);
 
-        ui_ = new UI();
+        UI ui_ = new UI();
 
         pannel_ = new Panel();
 
@@ -57,7 +51,6 @@ public class Main extends JFrame implements ActionListener
 
         setVisible(true);
 
-        exit_.addActionListener(this);
         mainMenu_.addActionListener(this);
 
         //Don't let the user change the window size, as the game's spacing will be incorrect
@@ -84,7 +77,6 @@ public class Main extends JFrame implements ActionListener
             new MainMenu(settings_);
             pannel_.freeze();
         }
-        if(source == exit_ || menuExit)
-            super.dispose();
+
     }
 }

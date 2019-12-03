@@ -100,7 +100,8 @@ class Paddle
                 if(ball_.getX() < xMiddle && x_ > 0)
                     x_ -= settings_.getComputerPaddleSpeed();
                 //Travel Right
-                if(ball_.getX() > xMiddle && (x_ + settings_.getHORIZONTAL_PADDLE_WIDTH()) < settings_.getSCREEN_WIDTH() / 2)
+                if(ball_.getX() > xMiddle && (x_ + settings_.getHORIZONTAL_PADDLE_WIDTH())
+                        < settings_.getSCREEN_WIDTH() / 2)
                     x_ += settings_.getComputerPaddleSpeed();
             }
             else
@@ -108,8 +109,9 @@ class Paddle
                 //Again, based on the balls location, move the paddles in the appropiate direction
                 int yMiddle = y_ - (settings_.getVERTICAL_PADDLE_HEIGHT() / 2);
                 //Travel Down
-                if(ball_.getY() > (y_ + settings_.getVERTICAL_PADDLE_HEIGHT() / 2 ) && (y_ + settings_.getVERTICAL_PADDLE_HEIGHT() +
-                    (settings_.getVERTICAL_PADDLE_HEIGHT() / 3)) < settings_.getSCREEN_HEIGHT())
+                if(ball_.getY() > (y_ + settings_.getVERTICAL_PADDLE_HEIGHT() / 2 ) && (y_ +
+                        settings_.getVERTICAL_PADDLE_HEIGHT() + (settings_.getVERTICAL_PADDLE_HEIGHT() / 3))
+                        < settings_.getSCREEN_HEIGHT())
                     y_ += settings_.getComputerPaddleSpeed();
 
                 //Travel Up

@@ -57,7 +57,7 @@ public class GameSettings
         HORIZONTAL_PADDLE_WIDTH = SCREEN_HEIGHT / 5;
         HORIZONTAL_PADDLE_HEIGHT = 10;
 
-        playerPaddleSpeed = 5;
+        playerPaddleSpeed = 6;
         computerPaddleSpeed = 5;
     }
 
